@@ -1,3 +1,5 @@
+#!/bin/python3
+
 import os
 from time import sleep
 import RPi.GPIO as GPIO
@@ -45,15 +47,20 @@ if __name__ == "__main__":
 	print("initial temp:", getTemp(), "C")
 
 	try:
+		print("setting mode")
 		GPIO.setmode(GPIO.BCM)
+		print("setting pin")
 		GPIO.setup(fanPin, GPIO.OUT)
+		print("setting PWM")
 		fanCtrl = GPIO.PWM(fanPin, 50)
+		print("starting")
 		fanCtrl.start(fanSpeed)	#15 is basically 0, 100 is max
 		#pause()
 		while True:
 			handleFan()
 			sleep(period)
-	except:
+	except Exception as e:
+		print(e)
 		print("cleaning up")
 		if fanCtrl:
 			fanCtrl.ChangeDutyCycle(0)

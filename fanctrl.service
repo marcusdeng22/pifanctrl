@@ -1,0 +1,13 @@
+[Unit]
+Description=Start fan control
+
+[Service]
+Type=simple
+ExecStart=$HOME/pifanctrl/fanCtrl.py
+RemainAfterExit=no
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
+
